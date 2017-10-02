@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>lnw Beer</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="moment.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Germania+One" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.js"></script>
+    <style>
+        body {
+            font-family: 'Germania One', cursive;
+        }
+    </style>
+    <script id="template" type="x-tmpl-mustache">
+        <h3>Hello {{ title }}!</h3>
+        <img src="{{ profile }}" alt="" class="img-circle">
+        <h3>Created : {{ date }}</h3>
+        <h3>Author : {{ author }}</h3>
+    </script>
+</head>
+
+<body>
+    <center>
+        <div id="picprofile">
+            <!-- <h1 id="title"></h1>
+            <div id="pic"></div>
+            <h5 id="date"></h5>
+            <h5 id="author"></h5> -->
+        </div>
+        <button id="checkButton" class="btn btn-danger">Show Picture</button>
+    </center>
+
+    <script>
+        $(function () {
+            $("#checkButton").click(function () {
+                // $("#title").empty();
+                // $("#pic").empty();
+                // $("#date").empty();
+                // $("#author").empty();
+                var url = "http://localhost:3000/posts";
+
+                $.get(url, function (data) {
+                    console.log(data);
+                    console.log(data[0].profile);
+                    // $('#title').append(data[0].title);
+                    // $('#pic').append('<img src="'+data[0].profile+'" alt="" ><br>');
+                    // $('#date').append(" Created : "+data[0].date);
+                    // $('#author').append("By : "+data[0].author);
+                    var template = $('#template').html();
+                    var rendered = Mustache.render(template, data[0]);
+                    $('#picprofile').append(rendered);
+
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>
